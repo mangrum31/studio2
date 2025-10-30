@@ -1,7 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import * as Tone from 'tone';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import type {
+  Synth as SynthType,
+  Transport as ToneTransportType,
+} from 'tone';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -26,9 +29,16 @@ export default function RhythmMasterPage() {
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
-  const synthRef = useRef<Tone.Synth | null>(null);
+  const synthRef = useRef<SynthType | null>(null);
+  const ToneRef = useRef<any>(null);
 
-  async function initializeAudio() {
+  const initializeAudio = useCallback(async () => {
+    if (!ToneRef.current) {
+      const Tone = await import('tone');
+      ToneRef.current = Tone;
+    }
+    const Tone = ToneRef.current;
+
     if (Tone.context.state !== 'running') {
       await Tone.start();
     }
@@ -39,9 +49,9 @@ export default function RhythmMasterPage() {
       }).toDestination();
     }
     return true;
-  }
+  }, []);
 
-  function flashButton(index: number) {
+  const flashButton = useCallback((index: number) => {
     if (!synthRef.current) return;
     const note = NOTES[index];
     synthRef.current.triggerAttackRelease(note, '8n');
@@ -50,40 +60,49 @@ export default function RhythmMasterPage() {
     setTimeout(() => {
       setActiveButton(null);
     }, FLASH_TIME);
-  }
+  }, []);
 
-  function playPattern(currentSequence: number[]) {
-    setIsPlayingPattern(true);
-    let time = Tone.now();
-    currentSequence.forEach((stepIndex, i) => {
+  const playPattern = useCallback(
+    (currentSequence: number[]) => {
+      if (!ToneRef.current) return;
+      const Tone = ToneRef.current;
+
+      setIsPlayingPattern(true);
+      let time = Tone.now();
+      currentSequence.forEach((stepIndex, i) => {
+        Tone.Transport.scheduleOnce(() => {
+          flashButton(stepIndex);
+        }, time + i * 0.5);
+      });
+
       Tone.Transport.scheduleOnce(() => {
-        flashButton(stepIndex);
-      }, time + i * 0.5);
-    });
+        setIsPlayingPattern(false);
+        setIsPlayerTurn(true);
+        setStatusMessage('Your turn! Repeat the pattern.');
+      }, time + currentSequence.length * 0.5 + 0.1);
 
-    Tone.Transport.scheduleOnce(() => {
-      setIsPlayingPattern(false);
-      setIsPlayerTurn(true);
-      setStatusMessage('Your turn! Repeat the pattern.');
-    }, time + currentSequence.length * 0.5 + 0.1);
+      if (Tone.Transport.state !== 'started') {
+        Tone.Transport.start();
+      }
+    },
+    [flashButton]
+  );
 
-    if (Tone.Transport.state !== 'started') {
-      Tone.Transport.start();
-    }
-  }
+  const nextRound = useCallback(
+    (currentSequence: number[]) => {
+      setPlayerSequence([]);
+      setIsPlayerTurn(false);
+      const newStep = Math.floor(Math.random() * 4);
+      const newSequence = [...currentSequence, newStep];
+      setSequence(newSequence);
+      setRound((r) => r + 1);
+      setStatusMessage(`Round ${round + 1}: Computer is playing...`);
+      playPattern(newSequence);
+    },
+    [round, playPattern]
+  );
 
-  function nextRound(currentSequence: number[]) {
-    setPlayerSequence([]);
-    setIsPlayerTurn(false);
-    const newStep = Math.floor(Math.random() * 4);
-    const newSequence = [...currentSequence, newStep];
-    setSequence(newSequence);
-    setRound((r) => r + 1);
-    setStatusMessage(`Round ${round + 1}: Computer is playing...`);
-    playPattern(newSequence);
-  }
-
-  async function startGame() {
+  const startGame = useCallback(async () => {
     const audioReady = await initializeAudio();
     if (audioReady) {
       setIsGameRunning(true);
@@ -91,42 +110,56 @@ export default function RhythmMasterPage() {
       setRound(0);
       nextRound([]);
     }
-  }
+  }, [initializeAudio, nextRound]);
 
-  function gameOver() {
+  const gameOver = useCallback(() => {
     setStatusMessage(`Game Over! You reached Round ${round}.`);
     setIsGameRunning(false);
     setIsPlayerTurn(false);
     if (synthRef.current) {
       synthRef.current.triggerAttackRelease('A2', '1n');
     }
-  }
+  }, [round]);
 
-  function handlePlayerClick(index: number) {
-    if (!isPlayerTurn || isPlayingPattern) return;
+  const handlePlayerClick = useCallback(
+    (index: number) => {
+      if (!isPlayerTurn || isPlayingPattern) return;
 
-    flashButton(index);
-    const newPlayerSequence = [...playerSequence, index];
-    setPlayerSequence(newPlayerSequence);
+      flashButton(index);
+      const newPlayerSequence = [...playerSequence, index];
+      setPlayerSequence(newPlayerSequence);
 
-    const currentMoveIndex = newPlayerSequence.length - 1;
-    if (newPlayerSequence[currentMoveIndex] !== sequence[currentMoveIndex]) {
-      gameOver();
-      return;
-    }
+      const currentMoveIndex = newPlayerSequence.length - 1;
+      if (newPlayerSequence[currentMoveIndex] !== sequence[currentMoveIndex]) {
+        gameOver();
+        return;
+      }
 
-    if (newPlayerSequence.length === sequence.length) {
-      setIsPlayerTurn(false);
-      setStatusMessage('Excellent! Getting harder...');
-      setTimeout(() => nextRound(sequence), 1500);
-    }
-  }
+      if (newPlayerSequence.length === sequence.length) {
+        setIsPlayerTurn(false);
+        setStatusMessage('Excellent! Getting harder...');
+        setTimeout(() => nextRound(sequence), 1500);
+      }
+    },
+    [
+      isPlayerTurn,
+      isPlayingPattern,
+      playerSequence,
+      sequence,
+      flashButton,
+      gameOver,
+      nextRound,
+    ]
+  );
 
   useEffect(() => {
+    const transport = ToneRef.current?.Transport as ToneTransportType;
     return () => {
-      Tone.Transport.cancel();
-      if (Tone.Transport.state === 'started') {
-        Tone.Transport.stop();
+      if (transport) {
+        transport.cancel();
+        if (transport.state === 'started') {
+          transport.stop();
+        }
       }
       synthRef.current?.dispose();
     };
