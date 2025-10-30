@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "1",
+      "description": "A treasure map on an old wooden table.",
+      "imageUrl": "https://images.unsplash.com/photo-1520299607509-dcd935f9a839?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmVhc3VyZSUyMG1hcHxlbnwwfHx8fDE3NjE3NjkyMzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "treasure map"
+    },
+    {
+      "id": "2",
+      "description": "A mystical forest with glowing mushrooms.",
+      "imageUrl": "https://images.unsplash.com/photo-1732383055768-ac257dbfc8be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxteXN0aWNhbCUyMGZvcmVzdHxlbnwwfHx8fDE3NjE3NjU4NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mystical forest"
+    },
+    {
+      "id": "3",
+      "description": "A stone labyrinth seen from above.",
+      "imageUrl": "https://images.unsplash.com/photo-1624192576692-b2d59ed366e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c3RvbmUlMjBsYWJ5cmludGh8ZW58MHx8fHwxNzYxNzg5MTUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "stone labyrinth"
+    },
+    {
+      "id": "4",
+      "description": "Tropical islands with a starry night sky.",
+      "imageUrl": "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cm9waWNhbCUyMGlzbGFuZHN8ZW58MHx8fHwxNzYxNzg5MTUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tropical islands"
+    }
+  ]
 }
