@@ -44,20 +44,6 @@ export default function GamesPage() {
           const Icon = iconMap[game.title];
           const gameRoute = gameRoutes[game.title];
 
-          const PlayButton = () => (
-            <Button asChild>
-              <Link href={gameRoute}>
-                <Play className="mr-2 h-4 w-4" /> Play Now
-              </Link>
-            </Button>
-          );
-
-          const DisabledButton = () => (
-            <Button disabled>
-              <Play className="mr-2 h-4 w-4" /> Play Now
-            </Button>
-          );
-
           return (
             <Card
               key={game.id}
@@ -73,7 +59,11 @@ export default function GamesPage() {
                 <CardDescription>{game.description}</CardDescription>
               </CardContent>
               <div className="p-4">
-                {gameRoute ? <PlayButton /> : <DisabledButton />}
+                <Button asChild disabled={!gameRoute}>
+                  <Link href={gameRoute || '#'}>
+                    <Play className="mr-2 h-4 w-4" /> Play Now
+                  </Link>
+                </Button>
               </div>
             </Card>
           );
