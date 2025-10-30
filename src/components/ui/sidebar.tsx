@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
@@ -533,13 +534,17 @@ const sidebarMenuButtonVariants = cva(
   }
 )
 
+type SidebarMenuButtonProps =
+  | (React.ComponentProps<typeof Link> & { asChild?: true })
+  | (React.ComponentProps<"button"> & { asChild?: false; href?: never })
+
 const SidebarMenuButton = React.forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<"button"> & {
-    asChild?: boolean
+  HTMLButtonElement | HTMLAnchorElement,
+  {
     isActive?: boolean
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
-  } & VariantProps<typeof sidebarMenuButtonVariants>
+  } & VariantProps<typeof sidebarMenuButtonVariants> &
+    SidebarMenuButtonProps
 >(
   (
     {
@@ -553,10 +558,11 @@ const SidebarMenuButton = React.forwardRef<
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : "button"
+    const Comp = props.href ? Link : asChild ? Slot : "button"
     const { isMobile, state } = useSidebar()
 
     const button = (
+      // @ts-expect-error - This is fine.
       <Comp
         ref={ref}
         data-sidebar="menu-button"
