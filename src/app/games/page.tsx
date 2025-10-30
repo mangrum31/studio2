@@ -13,12 +13,17 @@ import { CalculatorIcon } from '@/components/icons/calculator-icon';
 import { SpellCheckIcon } from '@/components/icons/spellcheck-icon';
 import { ShapesIcon } from '@/components/icons/shapes-icon';
 import { MusicIcon } from '@/components/icons/music-icon';
+import Link from 'next/link';
 
 const iconMap: { [key: string]: React.ComponentType<any> } = {
   'Equation Expedition': CalculatorIcon,
   'Word Weavers': SpellCheckIcon,
   'Pattern Detectives': ShapesIcon,
   'Rhythm Master': MusicIcon,
+};
+
+const gameRoutes: { [key: string]: string } = {
+  'Word Weavers': '/games/word-weavers',
 };
 
 export default function GamesPage() {
@@ -34,6 +39,22 @@ export default function GamesPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {games.map((game) => {
           const Icon = iconMap[game.title];
+          const gameRoute = gameRoutes[game.title];
+
+          const PlayButton = () => (
+            <Button asChild>
+              <Link href={gameRoute}>
+                <Play className="mr-2 h-4 w-4" /> Play Now
+              </Link>
+            </Button>
+          );
+
+          const DisabledButton = () => (
+            <Button disabled>
+              <Play className="mr-2 h-4 w-4" /> Play Now
+            </Button>
+          );
+
           return (
             <Card
               key={game.id}
@@ -49,9 +70,7 @@ export default function GamesPage() {
                 <CardDescription>{game.description}</CardDescription>
               </CardContent>
               <div className="p-4">
-                <Button>
-                  <Play className="mr-2 h-4 w-4" /> Play Now
-                </Button>
+                {gameRoute ? <PlayButton /> : <DisabledButton />}
               </div>
             </Card>
           );
