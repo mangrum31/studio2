@@ -26,6 +26,7 @@ const gameRoutes: { [key: string]: string } = {
   'Word Weavers': '/games/word-weavers',
   'Equation Expedition': '/games/equation-expedition',
   'Pattern Detectives': '/games/pattern-detectives',
+  'Rhythm Master': '/games/rhythm-master',
 };
 
 export default function GamesPage() {
