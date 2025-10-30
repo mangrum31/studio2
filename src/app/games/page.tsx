@@ -25,6 +25,7 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
 const gameRoutes: { [key: string]: string } = {
   'Word Weavers': '/games/word-weavers',
   'Equation Expedition': '/games/equation-expedition',
+  'Pattern Detectives': '/games/pattern-detectives',
 };
 
 export default function GamesPage() {
