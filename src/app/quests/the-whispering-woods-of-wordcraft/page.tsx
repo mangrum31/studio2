@@ -28,18 +28,18 @@ export default function WhisperingWoodsPage() {
         </Button>
       </header>
       <Card className="shadow-lg overflow-hidden">
-        <CardHeader className="bg-muted/30">
-          <CardTitle className="text-3xl font-bold font-headline text-primary">
+        <CardHeader className="bg-muted/30 p-4 md:p-6">
+          <CardTitle className="text-2xl md:text-3xl font-bold font-headline text-primary">
             The Whispering Woods of Wordcraft
           </CardTitle>
-          <CardDescription className="text-lg">
+          <CardDescription className="text-base md:text-lg">
             A curse of silence has fallen over the woods. Only by proving your
             mastery of vocabulary can you restore its voice.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 space-y-8">
+        <CardContent className="p-4 md:p-6 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-4 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-4 flex items-center">
               <BookHeart className="mr-3 h-6 w-6 text-accent" />
               The Trial of Words
             </h2>
@@ -85,7 +85,7 @@ export default function WhisperingWoodsPage() {
                 },
               ].map((item, index) => (
                 <AccordionItem value={`item-${index + 1}`} key={index}>
-                  <AccordionTrigger className="font-semibold font-headline text-lg text-left">
+                  <AccordionTrigger className="font-semibold font-headline text-base md:text-lg text-left">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent>
@@ -99,7 +99,7 @@ export default function WhisperingWoodsPage() {
           <Separator />
 
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-4 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-4 flex items-center">
               <Key className="mr-3 h-6 w-6 text-accent" />
               The Curse-Breaking Code
             </h2>
@@ -171,7 +171,7 @@ export default function WhisperingWoodsPage() {
           <Separator />
 
           <section className="text-center">
-            <h2 className="text-2xl font-bold font-headline mb-2 text-green-600 flex items-center justify-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-2 text-green-600 flex items-center justify-center">
               <TreeDeciduous className="mr-3 h-6 w-6" />
               The Final Incantation
             </h2>
@@ -179,13 +179,13 @@ export default function WhisperingWoodsPage() {
               Whisper the code $D_1D_2D_3D_4$ to the ancient heart-tree to
               restore the voice of the woods.
             </p>
-            <div className="my-6 bg-muted/50 p-6 rounded-lg">
+            <div className="my-6 bg-muted/50 p-4 md:p-6 rounded-lg">
               <p className="text-muted-foreground mb-2">The Code Is</p>
-              <span className="text-7xl font-black text-green-600 tracking-widest">
+              <span className="text-5xl md:text-7xl font-black text-green-600 tracking-widest">
                 4758
               </span>
             </div>
-            <p className="text-lg text-foreground/90">
+            <p className="text-base md:text-lg text-foreground/90">
               The woods are alive with sound once more! Thank you for your help,
               Wordcrafter.
             </p>

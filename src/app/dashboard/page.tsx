@@ -14,13 +14,13 @@ export default function DashboardPage() {
   return (
     <div className="w-full space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">
           Your Adventure So Far
         </h1>
         <p className="text-muted-foreground">Keep up the great work, explorer!</p>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Quests Completed</CardTitle>
@@ -60,7 +60,7 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Monthly Progress</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pl-2">
             <ChartContainer
               config={progressChartConfig}
               className="h-[300px] w-full"
@@ -72,8 +72,16 @@ export default function DashboardPage() {
                   tickLine={false}
                   tickMargin={10}
                   axisLine={false}
+                  stroke="#888888"
+                  fontSize={12}
                 />
-                <YAxis tickLine={false} axisLine={false} tickMargin={10} />
+                <YAxis 
+                  tickLine={false} 
+                  axisLine={false} 
+                  stroke="#888888"
+                  fontSize={12}
+                  tickMargin={10} 
+                />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent indicator="dot" />}

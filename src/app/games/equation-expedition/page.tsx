@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -22,7 +22,7 @@ export default function EquationExpeditionPage() {
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  function generateProblem() {
+  const generateProblem = useCallback(() => {
     const operatorIndex = Math.floor(Math.random() * 3);
     let num1 = Math.floor(Math.random() * MAX_NUMBER) + 1;
     let num2 = Math.floor(Math.random() * MAX_NUMBER) + 1;
@@ -48,32 +48,24 @@ export default function EquationExpeditionPage() {
 
     setQuestion(questionString);
     setCurrentAnswer(answer);
-  }
+  }, []);
 
-  function showFeedback(text: string, color: string) {
+  const showFeedback = (text: string, color: string) => {
     setFeedback({ text, color });
     setTimeout(() => {
       setFeedback(null);
     }, 1500);
-  }
+  };
 
-  function checkAnswer() {
-    if (!gameRunning) return;
-
-    const userAnswer = parseInt(inputValue, 10);
-    if (isNaN(userAnswer)) return;
-
-    if (userAnswer === currentAnswer) {
-      setScore((prev) => prev + 1);
-      showFeedback('Correct! +1 Point', 'text-green-600');
-      generateProblem();
-      setInputValue('');
-    } else {
-      showFeedback('Try again!', 'text-red-500');
+  const endGame = useCallback(() => {
+    if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
     }
-  }
+    setGameRunning(false);
+    setShowModal(true);
+  }, []);
 
-  function startGame() {
+  const startGame = useCallback(() => {
     if (timerIntervalRef.current) {
       clearInterval(timerIntervalRef.current);
     }
@@ -94,15 +86,23 @@ export default function EquationExpeditionPage() {
         return prev - 1;
       });
     }, 1000);
-  }
+  }, [generateProblem, endGame]);
 
-  function endGame() {
-    if (timerIntervalRef.current) {
-      clearInterval(timerIntervalRef.current);
+  const checkAnswer = useCallback(() => {
+    if (!gameRunning) return;
+
+    const userAnswer = parseInt(inputValue, 10);
+    if (isNaN(userAnswer)) return;
+
+    if (userAnswer === currentAnswer) {
+      setScore((prev) => prev + 1);
+      showFeedback('Correct! +1 Point', 'text-green-600');
+      generateProblem();
+      setInputValue('');
+    } else {
+      showFeedback('Try again!', 'text-red-500');
     }
-    setGameRunning(false);
-    setShowModal(true);
-  }
+  }, [gameRunning, inputValue, currentAnswer, generateProblem]);
 
   useEffect(() => {
     return () => {
@@ -119,47 +119,47 @@ export default function EquationExpeditionPage() {
   };
 
   return (
-    <div className="relative w-full max-w-lg bg-card shadow-2xl rounded-2xl p-6 sm:p-10 text-center transition-all duration-300 mx-auto">
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-6">
+    <div className="relative w-full max-w-lg bg-card shadow-2xl rounded-2xl p-6 sm:p-8 text-center transition-all duration-300 mx-auto">
+      <h1 className="text-3xl sm:text-4xl font-extrabold text-primary mb-4">
         Math Dash
       </h1>
 
-      <div className="flex justify-between items-center mb-8 bg-muted/50 p-4 rounded-xl shadow-inner">
+      <div className="flex justify-between items-center mb-6 bg-muted/50 p-3 rounded-xl shadow-inner">
         <div className="flex flex-col items-start">
-          <span className="text-lg font-medium text-muted-foreground">Score:</span>
-          <span id="score-display" className="text-4xl font-black text-green-600">
+          <span className="text-base font-medium text-muted-foreground">Score:</span>
+          <span id="score-display" className="text-3xl font-black text-green-600">
             {score}
           </span>
         </div>
         <div className="flex flex-col items-end">
-          <span className="text-lg font-medium text-muted-foreground">Time:</span>
+          <span className="text-base font-medium text-muted-foreground">Time:</span>
           <span
             id="timer-display"
-            className={`text-4xl font-black transition-colors ${getTimerColor()}`}
+            className={`text-3xl font-black transition-colors ${getTimerColor()}`}
           >
             {timeRemaining}
           </span>
         </div>
       </div>
 
-      <div id="problem-area" className="mb-8">
-        <p className="text-2xl font-semibold text-card-foreground mb-4">
+      <div id="problem-area" className="mb-6">
+        <p className="text-xl font-semibold text-card-foreground mb-3">
           Solve this problem:
         </p>
         <div
           id="question-display"
-          className="text-6xl sm:text-7xl font-black text-foreground bg-primary/10 p-6 rounded-xl shadow-md"
+          className="text-5xl sm:text-6xl font-black text-foreground bg-primary/10 p-4 rounded-xl shadow-md"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>
 
-      <div className="flex flex-col items-center mb-6">
+      <div className="flex flex-col items-center mb-4">
         <Input
           ref={inputRef}
           type="number"
           id="answer-input"
           placeholder="Your Answer"
-          className="w-full p-4 border-4 border-primary/70 rounded-xl text-3xl text-center font-bold focus:outline-none focus:border-primary transition duration-150"
+          className="w-full p-3 border-4 border-primary/70 rounded-xl text-2xl text-center font-bold focus:outline-none focus:border-primary transition duration-150"
           autoComplete="off"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -168,7 +168,7 @@ export default function EquationExpeditionPage() {
         />
         <div
           id="feedback-message"
-          className={`h-8 mt-4 text-xl font-semibold ${feedback?.color || ''}`}
+          className={`h-6 mt-3 text-lg font-semibold ${feedback?.color || ''}`}
         >
           {feedback?.text}
         </div>
@@ -178,7 +178,7 @@ export default function EquationExpeditionPage() {
         <Button
           id="start-btn"
           onClick={startGame}
-          className="w-full py-4 h-auto px-6 bg-indigo-600 hover:bg-indigo-700 text-white text-2xl font-bold rounded-xl shadow-lg transition duration-200 transform hover:scale-[1.02]"
+          className="w-full py-3 h-auto px-6 bg-indigo-600 hover:bg-indigo-700 text-white text-xl font-bold rounded-xl shadow-lg transition duration-200 transform hover:scale-[1.02]"
         >
           Start Game
         </Button>
@@ -186,22 +186,22 @@ export default function EquationExpeditionPage() {
 
       {showModal && (
         <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center rounded-2xl">
-          <div className="bg-card p-8 rounded-xl shadow-2xl text-center w-4/5 max-w-sm transform scale-100 transition-transform duration-300">
-            <h2 className="text-4xl font-black text-red-600 mb-4">
+          <div className="bg-card p-6 rounded-xl shadow-2xl text-center w-4/5 max-w-xs transform scale-100 transition-transform duration-300">
+            <h2 className="text-3xl font-black text-red-600 mb-3">
               Time's Up!
             </h2>
-            <p className="text-xl text-card-foreground mb-6">
+            <p className="text-lg text-card-foreground mb-4">
               Your final score is:
             </p>
             <p
               id="final-score"
-              className="text-6xl font-black text-green-500 mb-8"
+              className="text-5xl font-black text-green-500 mb-6"
             >
               {score}
             </p>
             <Button
               onClick={startGame}
-              className="py-3 h-auto px-6 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full text-lg shadow-md transition"
+              className="py-2 h-auto px-5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-full text-base shadow-md transition"
             >
               Play Again
             </Button>
@@ -209,5 +209,3 @@ export default function EquationExpeditionPage() {
         </div>
       )}
     </div>
-  );
-}

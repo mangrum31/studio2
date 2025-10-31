@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -24,7 +24,6 @@ const ShapeSVG: React.FC<{ shape: ShapeType; color: ColorType }> = ({
   shape,
   color,
 }) => {
-  const size = 80;
   const viewBox = '0 0 100 100';
   let path = '';
 
@@ -67,7 +66,7 @@ export default function SequenceSolverPage() {
 
   // --- Game Logic ---
 
-  const generateSequence = () => {
+  const generateSequence = useCallback(() => {
     const patternType = Math.floor(Math.random() * 3);
     const shapeStart = Math.floor(Math.random() * SHAPES.length);
     const colorStart = Math.floor(Math.random() * COLORS.length);
@@ -96,9 +95,9 @@ export default function SequenceSolverPage() {
       }
     }
     return { newSequence, nextItem };
-  };
+  }, []);
 
-  const generateDistractors = (correctItem: GameItem): GameItem[] => {
+  const generateDistractors = useCallback((correctItem: GameItem): GameItem[] => {
     const distractors: GameItem[] = [];
     let attempts = 0;
     while (distractors.length < 3 && attempts < 20) {
@@ -119,17 +118,17 @@ export default function SequenceSolverPage() {
       }
     }
     return distractors;
-  };
+  }, []);
 
-  const shuffle = <T,>(array: T[]): T[] => {
+  const shuffle = useCallback(<T,>(array: T[]): T[] => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-  };
+  }, []);
 
-  const setupLevel = () => {
+  const setupLevel = useCallback(() => {
     setIsLocked(false);
     setFeedback(null);
     if (level > MAX_LEVELS) {
@@ -144,13 +143,14 @@ export default function SequenceSolverPage() {
       setCorrectNextItem(nextItem);
       setChoices(allChoices);
     }
-  };
+  }, [level, generateSequence, generateDistractors, shuffle]);
 
   const handleChoice = (chosenItem: GameItem) => {
     if (isLocked) return;
 
     const isCorrect =
-      chosenItem.shape === correctNextItem?.shape &&
+      correctNextItem &&
+      chosenItem.shape === correctNextItem.shape &&
       chosenItem.color === correctNextItem.color;
     setIsLocked(true);
 
@@ -171,64 +171,63 @@ export default function SequenceSolverPage() {
 
   useEffect(() => {
     setupLevel();
-  }, [level]);
+  }, [level, setupLevel]);
 
   if (level > MAX_LEVELS) {
     return (
       <div className="w-full max-w-4xl bg-card shadow-2xl rounded-xl p-6 sm:p-10 text-center transition-all duration-300 mx-auto">
-        <h1 className="text-3xl font-extrabold text-green-700">Congratulations!</h1>
-        <p className="text-xl mt-4">You solved all {MAX_LEVELS} levels!</p>
-        <p className="text-2xl mt-2">Final Score: {score}</p>
-        <Button onClick={() => { setLevel(1); setScore(0); }} className="mt-8">Play Again</Button>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-green-700">Congratulations!</h1>
+        <p className="text-lg md:text-xl mt-4">You solved all {MAX_LEVELS} levels!</p>
+        <p className="text-xl md:text-2xl mt-2">Final Score: {score}</p>
+        <Button onClick={() => { setLevel(1); setScore(0); setupLevel(); }} className="mt-8">Play Again</Button>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-4xl bg-card shadow-2xl rounded-xl p-6 sm:p-10 text-center transition-all duration-300 mx-auto">
-      <h1 className="text-4xl font-extrabold text-primary mb-2">Sequence Solver</h1>
+    <div className="w-full max-w-4xl bg-card shadow-2xl rounded-xl p-4 sm:p-8 text-center transition-all duration-300 mx-auto">
+      <h1 className="text-3xl md:text-4xl font-extrabold text-primary mb-2">Sequence Solver</h1>
       <p className="text-muted-foreground mb-6">
         What is the next shape and color in the pattern?
       </p>
 
-      <div className="flex justify-around items-center mb-8 bg-muted p-4 rounded-xl shadow-inner">
-        <div className="text-center">
-          <span className="text-lg font-medium text-muted-foreground">Score:</span>
-          <span className="text-3xl font-black text-green-600 ml-2">{score}</span>
+      <div className="flex flex-col sm:flex-row justify-around items-center mb-8 bg-muted p-4 rounded-xl shadow-inner">
+        <div className="text-center mb-4 sm:mb-0">
+          <span className="text-base font-medium text-muted-foreground">Score:</span>
+          <span className="text-2xl font-black text-green-600 ml-2">{score}</span>
         </div>
         <div className="text-center">
-          <span className="text-lg font-medium text-muted-foreground">Level:</span>
-          <span className="text-3xl font-black text-primary ml-2">{level}</span>
+          <span className="text-base font-medium text-muted-foreground">Level:</span>
+          <span className="text-2xl font-black text-primary ml-2">{level}</span>
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-10 p-4 bg-muted/50 rounded-lg shadow-md min-h-[140px]">
+      <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 mb-8 p-4 bg-muted/50 rounded-lg shadow-md min-h-[100px] sm:min-h-[140px]">
         {sequence.map((item, index) => (
-          <div key={index} className="flex items-center gap-2 sm:gap-4">
-            <div className="w-24 h-24 p-2 bg-background rounded-lg shadow-sm border">
+          <div key={index} className="flex items-center gap-1 sm:gap-2">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 p-1 bg-background rounded-lg shadow-sm border">
               <ShapeSVG shape={item.shape} color={item.color} />
             </div>
-            <span className="text-4xl text-muted-foreground/50 font-light">&rarr;</span>
+            <span className="text-2xl sm:text-4xl text-muted-foreground/50 font-light">&rarr;</span>
           </div>
         ))}
-        <div className="w-24 h-24 p-2 bg-muted rounded-lg shadow-inner flex items-center justify-center">
-          <span className="text-4xl font-black text-muted-foreground">?</span>
+        <div className="w-16 h-16 sm:w-24 sm:h-24 p-2 bg-muted rounded-lg shadow-inner flex items-center justify-center">
+          <span className="text-3xl sm:text-4xl font-black text-muted-foreground">?</span>
         </div>
       </div>
 
-      <div className="mb-8">
-        <p className="text-2xl font-semibold text-card-foreground mb-4">
+      <div className="mb-6">
+        <p className="text-xl md:text-2xl font-semibold text-card-foreground mb-4">
           Select the 5th item:
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
           {choices.map((item, index) => {
              const isCorrectChoice = item.shape === correctNextItem?.shape && item.color === correctNextItem?.color;
-             const isChosen = feedback && feedback.text.startsWith('Incorrect') && isCorrectChoice;
             return (
               <button
                 key={index}
                 className={cn(
-                  "w-32 h-32 p-2 bg-muted/30 rounded-xl shadow-md flex items-center justify-center border-4 border-transparent hover:scale-105 hover:shadow-lg transition-all",
+                  "w-24 h-24 sm:w-32 sm:h-32 p-2 bg-muted/30 rounded-xl shadow-md flex items-center justify-center border-4 border-transparent hover:scale-105 hover:shadow-lg transition-all",
                   isLocked && isCorrectChoice && "border-green-500 bg-green-100 ring-4 ring-green-400",
                   isLocked && !isCorrectChoice && "opacity-50"
                 )}
@@ -242,7 +241,7 @@ export default function SequenceSolverPage() {
         </div>
       </div>
 
-      <div className={cn("h-10 text-xl font-bold", feedback?.color)}>
+      <div className={cn('h-8 text-lg font-bold', feedback?.color)}>
         {feedback?.text}
       </div>
     </div>

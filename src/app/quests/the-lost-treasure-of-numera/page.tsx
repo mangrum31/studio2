@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -29,19 +28,19 @@ export default function LostTreasurePage() {
         </Button>
       </header>
       <Card className="shadow-lg overflow-hidden">
-        <CardHeader className="bg-muted/30">
-          <CardTitle className="text-3xl font-bold font-headline text-primary">
+        <CardHeader className="bg-muted/30 p-4 md:p-6">
+          <CardTitle className="text-2xl md:text-3xl font-bold font-headline text-primary">
             The Lost Treasure of Numera
           </CardTitle>
-          <CardDescription className="text-lg">
+          <CardDescription className="text-base md:text-lg">
             A legendary treasure is protected by an ancient, four-digit
             mathematical lock. Complete the trial of Ten Puzzles to reveal the
             code.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 space-y-8">
+        <CardContent className="p-4 md:p-6 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-4 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-4 flex items-center">
               <HelpCircle className="mr-3 h-6 w-6 text-accent" />
               The Trial of Ten Puzzles
             </h2>
@@ -104,7 +103,7 @@ export default function LostTreasurePage() {
                 },
               ].map((item, index) => (
                 <AccordionItem value={`item-${index + 1}`} key={index}>
-                  <AccordionTrigger className="font-semibold font-headline text-lg text-left">
+                  <AccordionTrigger className="font-semibold font-headline text-base md:text-lg text-left">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent>
@@ -123,7 +122,7 @@ export default function LostTreasurePage() {
           <Separator />
 
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-4 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-4 flex items-center">
               <Key className="mr-3 h-6 w-6 text-accent" />
               The Treasure's Code
             </h2>
@@ -194,7 +193,7 @@ export default function LostTreasurePage() {
           <Separator />
 
           <section className="text-center">
-            <h2 className="text-2xl font-bold font-headline mb-2 text-green-600 flex items-center justify-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-2 text-green-600 flex items-center justify-center">
               <Diamond className="mr-3 h-6 w-6" />
               The Final Code
             </h2>
@@ -202,13 +201,13 @@ export default function LostTreasurePage() {
               Combine the digits $D_1D_2D_3D_4$ to reveal the lock's combination.
               Enter this code into the ancient mechanism to claim your prize.
             </p>
-            <div className="my-6 bg-muted/50 p-6 rounded-lg">
+            <div className="my-6 bg-muted/50 p-4 md:p-6 rounded-lg">
               <p className="text-muted-foreground mb-2">The Code Is</p>
-              <span className="text-7xl font-black text-green-600 tracking-widest">
+              <span className="text-5xl md:text-7xl font-black text-green-600 tracking-widest">
                 1252
               </span>
             </div>
-            <p className="text-lg text-foreground/90">
+            <p className="text-base md:text-lg text-foreground/90">
               Congratulations, brave adventurer! You have proven your mathematical
               prowess and unlocked the legendary treasure of Numera.
             </p>

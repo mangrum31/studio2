@@ -76,7 +76,7 @@ export function ProjectAssistant() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold">Add New Project</CardTitle>
+          <CardTitle className="text-xl md:text-2xl font-semibold">Add New Project</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -102,7 +102,7 @@ export function ProjectAssistant() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold">My Projects</CardTitle>
+          <CardTitle className="text-xl md:text-2xl font-semibold">My Projects</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -110,16 +110,16 @@ export function ProjectAssistant() {
               projects.map((project) => (
                 <div
                   key={project.id}
-                  className="p-4 border border-border rounded-lg flex items-center justify-between transition duration-150 hover:bg-muted/50"
+                  className="p-4 border border-border rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition duration-150 hover:bg-muted/50"
                 >
                   <span className="text-foreground font-medium truncate">
                     {project.description}
                   </span>
-                  <div className="flex space-x-2 ml-4">
+                  <div className="flex space-x-2 w-full sm:w-auto sm:ml-4">
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-sm"
+                      className="text-sm w-full"
                       disabled
                     >
                       <span className="mr-1">✨</span> Plan It (soon)
@@ -153,7 +153,7 @@ export function ProjectAssistant() {
       {aiOutput && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl font-semibold">{aiOutput.title}</CardTitle>
+            <CardTitle className="text-xl md:text-2xl font-semibold">{aiOutput.title}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="bg-muted/50 p-4 rounded-lg border border-border prose-sm max-w-none">
@@ -163,5 +163,3 @@ export function ProjectAssistant() {
         </Card>
       )}
     </>
-  );
-}

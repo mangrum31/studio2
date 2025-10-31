@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -33,13 +34,13 @@ export default function GamesPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">Skill-Based Games</h1>
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">Skill-Based Games</h1>
         <p className="text-muted-foreground">
           Sharpen your mind with these fun challenges!
         </p>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {games.map((game) => {
           const Icon = iconMap[game.title];
           const gameRoute = gameRoutes[game.title];
@@ -58,13 +59,13 @@ export default function GamesPage() {
               <CardContent className="flex-grow">
                 <CardDescription>{game.description}</CardDescription>
               </CardContent>
-              <div className="p-4">
+              <CardFooter className="p-4">
                 <Button asChild disabled={!gameRoute}>
                   <Link href={gameRoute || '#'}>
                     <Play className="mr-2 h-4 w-4" /> Play Now
                   </Link>
                 </Button>
-              </div>
+              </CardFooter>
             </Card>
           );
         })}

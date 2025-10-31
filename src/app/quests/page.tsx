@@ -25,7 +25,7 @@ export default function QuestsPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-3xl font-bold font-headline">
+        <h1 className="text-2xl md:text-3xl font-bold font-headline">
           Interactive Story Quests
         </h1>
         <p className="text-muted-foreground">
@@ -33,7 +33,7 @@ export default function QuestsPage() {
         </p>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {quests.map((quest) => {
           const placeholder = PlaceHolderImages.find(
             (p) => p.id === quest.image_id
@@ -52,14 +52,15 @@ export default function QuestsPage() {
                     alt={placeholder.description}
                     data-ai-hint={placeholder.imageHint}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                   />
                 )}
               </div>
               <CardHeader>
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start gap-2">
                   <CardTitle>{quest.title}</CardTitle>
-                  <Badge variant="secondary">{quest.category}</Badge>
+                  <Badge variant="secondary" className='shrink-0'>{quest.category}</Badge>
                 </div>
                 <CardDescription>{quest.description}</CardDescription>
               </CardHeader>

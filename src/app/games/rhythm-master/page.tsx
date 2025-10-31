@@ -166,11 +166,11 @@ export default function RhythmMasterPage() {
   }, []);
 
   return (
-    <div className="w-full max-w-lg bg-gray-800 shadow-2xl rounded-2xl p-6 sm:p-10 text-center transition-all duration-300 border-4 border-gray-700 mx-auto">
-      <h1 className="text-4xl font-extrabold text-white mb-2">Rhythm Master</h1>
+    <div className="w-full max-w-md bg-gray-800 shadow-2xl rounded-2xl p-6 sm:p-8 text-center transition-all duration-300 border-4 border-gray-700 mx-auto">
+      <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">Rhythm Master</h1>
       <p
         className={cn(
-          'text-lg mb-6',
+          'text-base md:text-lg mb-6',
           statusMessage.includes('Game Over')
             ? 'text-red-400'
             : 'text-gray-400'
@@ -181,15 +181,15 @@ export default function RhythmMasterPage() {
 
       <div className="flex justify-around items-center mb-8">
         <div className="text-center">
-          <span className="text-xl font-medium text-gray-400">Round:</span>
-          <span className="text-4xl font-black text-indigo-400 block">
+          <span className="text-lg md:text-xl font-medium text-gray-400">Round:</span>
+          <span className="text-3xl md:text-4xl font-black text-indigo-400 block">
             {round}
           </span>
         </div>
         <Button
           onClick={startGame}
           disabled={isGameRunning}
-          className="py-3 h-auto px-8 bg-green-500 hover:bg-green-600 text-white text-xl font-bold rounded-full shadow-lg transition duration-200 transform hover:scale-105 disabled:bg-gray-500 disabled:cursor-not-allowed"
+          className="py-3 h-auto px-6 md:px-8 bg-green-500 hover:bg-green-600 text-white text-lg md:text-xl font-bold rounded-full shadow-lg transition duration-200 transform hover:scale-105 disabled:bg-gray-500 disabled:cursor-not-allowed"
         >
           {isGameRunning
             ? 'In Progress'
@@ -199,7 +199,7 @@ export default function RhythmMasterPage() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 grid-rows-2 gap-4 max-w-sm aspect-square mx-auto">
+      <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 max-w-sm aspect-square mx-auto">
         {BUTTON_COLORS.map((color, index) => (
           <button
             key={index}
@@ -217,7 +217,3 @@ export default function RhythmMasterPage() {
             )}
           />
         ))}
-      </div>
-    </div>
-  );
-}

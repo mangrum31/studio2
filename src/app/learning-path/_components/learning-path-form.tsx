@@ -86,7 +86,7 @@ export function LearningPathForm() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="childName"
@@ -167,7 +167,7 @@ export function LearningPathForm() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full md:w-auto"
+                className="w-full sm:w-auto"
               >
                 {isLoading ? (
                   <>
@@ -188,7 +188,7 @@ export function LearningPathForm() {
       {result && (
         <Card className="mt-8 shadow-inner bg-muted/50">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-xl md:text-2xl">
               <Sparkles className="h-5 w-5 text-primary" />
               Your Personalized Path
             </CardTitle>

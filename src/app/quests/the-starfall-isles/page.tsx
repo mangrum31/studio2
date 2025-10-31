@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -23,18 +22,18 @@ export default function StarfallIslesPage() {
         </Button>
       </header>
       <Card className="shadow-lg overflow-hidden">
-        <CardHeader className="bg-muted/30">
-          <CardTitle className="text-3xl font-bold font-headline text-primary">
+        <CardHeader className="bg-muted/30 p-4 md:p-6">
+          <CardTitle className="text-2xl md:text-3xl font-bold font-headline text-primary">
             The Starfall Isles: A Hero's Guide
           </CardTitle>
-          <CardDescription className="text-lg">
+          <CardDescription className="text-base md:text-lg">
             A complete walkthrough for navigating the legendary Labyrinth of
             Whispers.
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-6 space-y-8">
+        <CardContent className="p-4 md:p-6 space-y-8">
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-3 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-3 flex items-center">
               <BookOpen className="mr-3 h-6 w-6 text-accent" />
               The Legend Begins
             </h2>
@@ -53,14 +52,14 @@ export default function StarfallIslesPage() {
           <Separator />
 
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-4 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-4 flex items-center">
               <Puzzle className="mr-3 h-6 w-6 text-accent" />
               The Path Through the Chambers
             </h2>
 
             <div className="space-y-6">
               <div className="p-4 bg-background rounded-lg border">
-                <h3 className="text-xl font-semibold font-headline mb-2 flex items-center">
+                <h3 className="text-lg md:text-xl font-semibold font-headline mb-2 flex items-center">
                   <Key className="mr-2 h-5 w-5 text-primary/80" />
                   Chamber 1: The Initial Riddle
                 </h3>
@@ -78,7 +77,7 @@ export default function StarfallIslesPage() {
               </div>
 
               <div className="p-4 bg-background rounded-lg border">
-                <h3 className="text-xl font-semibold font-headline mb-2 flex items-center">
+                <h3 className="text-lg md:text-xl font-semibold font-headline mb-2 flex items-center">
                   <Key className="mr-2 h-5 w-5 text-primary/80" />
                   Chamber 2: The Logic Lock
                 </h3>
@@ -126,21 +125,21 @@ export default function StarfallIslesPage() {
           <Separator />
 
           <section>
-            <h2 className="text-2xl font-bold font-headline mb-2 text-green-600 flex items-center">
+            <h2 className="text-xl md:text-2xl font-bold font-headline mb-2 text-green-600 flex items-center justify-center">
               🏆 The Labyrinth's Escape Code
             </h2>
-            <p>
+            <p className="text-center">
               By successfully navigating the chambers and solving their trials,
               you have revealed the final numeric code required to unlock the
               labyrinth's center and claim your victory.
             </p>
-            <div className="text-center my-6 bg-muted/50 p-6 rounded-lg">
+            <div className="text-center my-6 bg-muted/50 p-4 md:p-6 rounded-lg">
               <p className="text-muted-foreground mb-2">The Final Code Is</p>
-              <span className="text-7xl font-black text-green-600 tracking-widest">
+              <span className="text-6xl md:text-7xl font-black text-green-600 tracking-widest">
                 2
               </span>
             </div>
-            <p>
+            <p className="text-center">
               As for the treasure within, it is not gold nor jewels, but a
               single, seven-letter word whispered by the ancients:
               <strong className="text-accent-foreground font-bold text-lg"> MYSTERY</strong>. The true reward is the journey and the wisdom gained.
@@ -151,5 +150,3 @@ export default function StarfallIslesPage() {
     </div>
   );
 }
-
-    
