@@ -15,7 +15,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 const questRoutes: { [key: string]: string | undefined } = {
-  'quest-1': undefined,
+  'quest-1': '/quests/the-lost-treasure-of-numera',
   'quest-2': undefined,
   'quest-3': undefined,
   'quest-4': '/quests/the-starfall-isles',
