@@ -11,3 +11,7 @@ export default function CreativePage() {
           Manage your projects and instantly generate plans and status reports.
         </p>
       </header>
+      <ProjectAssistant />
+    </div>
+  );
+}
