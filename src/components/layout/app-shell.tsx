@@ -78,8 +78,8 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-14 items-center gap-4 border-b bg-background/80 px-6 backdrop-blur-sm sticky top-0 z-30 md:hidden">
-          <SidebarTrigger />
+        <header className="flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sticky top-0 z-30 md:hidden">
+          <SidebarTrigger className="h-8 w-8" />
           <div className="flex items-center gap-2">
             <Rocket className="h-6 w-6 text-primary" />
             <h2 className="text-lg font-semibold font-headline text-primary">
@@ -87,7 +87,7 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
             </h2>
           </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
