@@ -16,7 +16,7 @@ import Link from 'next/link';
 
 const questRoutes: { [key: string]: string | undefined } = {
   'quest-1': '/quests/the-lost-treasure-of-numera',
-  'quest-2': undefined,
+  'quest-2': '/quests/the-whispering-woods-of-wordcraft',
   'quest-3': undefined,
   'quest-4': '/quests/the-starfall-isles',
 };
