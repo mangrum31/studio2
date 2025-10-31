@@ -115,7 +115,7 @@ export function ProjectAssistant() {
                   <span className="text-foreground font-medium truncate">
                     {project.description}
                   </span>
-                  <div className="flex space-x-2 w-full sm:w-auto sm:ml-4">
+                  <div className="flex space-x-2 w-full sm:w-auto sm:ml-4 shrink-0">
                     <Button
                       size="sm"
                       variant="outline"
