@@ -11,7 +11,7 @@ import {
   Rocket,
   Swords,
 } from 'lucide-react';
-
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   SidebarProvider,
   Sidebar,
@@ -39,6 +39,11 @@ const navItems = [
 
 export const AppShell: FC<AppShellProps> = ({ children }) => {
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+
+  if (isMobile === null) {
+    return null; // Don't render until mobile status is determined
+  }
 
   return (
     <SidebarProvider>
@@ -46,7 +51,7 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
         <SidebarHeader>
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild className="h-10 w-10 p-0">
-              <Link href="/dashboard">
+              <Link href="/">
                 <Rocket className="h-7 w-7 text-primary" />
               </Link>
             </Button>
@@ -63,7 +68,8 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
                   <SidebarMenuButton
                     isActive={
                       pathname === item.href ||
-                      (item.href !== '/dashboard' &&
+                      (item.href !== '/' &&
+                        item.href !== '/dashboard' &&
                         pathname.startsWith(item.href))
                     }
                     tooltip={item.label}
@@ -87,7 +93,7 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
             </h2>
           </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
+        <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
