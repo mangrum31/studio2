@@ -12,6 +12,14 @@ import { quests } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
+const questRoutes: { [key: string]: string | undefined } = {
+  'quest-1': undefined,
+  'quest-2': undefined,
+  'quest-3': undefined,
+  'quest-4': '/quests/the-starfall-isles',
+};
 
 export default function QuestsPage() {
   return (
@@ -30,6 +38,8 @@ export default function QuestsPage() {
           const placeholder = PlaceHolderImages.find(
             (p) => p.id === quest.image_id
           );
+          const questRoute = questRoutes[quest.id];
+
           return (
             <Card
               key={quest.id}
@@ -54,8 +64,10 @@ export default function QuestsPage() {
                 <CardDescription>{quest.description}</CardDescription>
               </CardHeader>
               <CardFooter className="mt-auto">
-                <Button>
-                  Start Quest <ArrowRight className="ml-2 h-4 w-4" />
+                <Button asChild disabled={!questRoute}>
+                  <Link href={questRoute || '#'}>
+                    Start Quest <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
