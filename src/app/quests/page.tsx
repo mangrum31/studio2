@@ -64,7 +64,7 @@ export default function QuestsPage() {
                 </div>
                 <CardDescription>{quest.description}</CardDescription>
               </CardHeader>
-              <CardFooter className="mt-auto">
+              <CardFooter className="mt-auto p-4">
                 <Button asChild disabled={!questRoute}>
                   <Link href={questRoute || '#'}>
                     Start Quest <ArrowRight className="ml-2 h-4 w-4" />
