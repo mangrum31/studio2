@@ -50,14 +50,24 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
     );
   }
 
+  const brandName = "EduPlay";
+
   return (
     <div className="min-h-screen w-full flex flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
         <div className="container h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Rocket className="h-7 w-7 text-primary" />
-            <h1 className="text-xl font-bold text-primary font-headline">
-              EduPlay
+            <h1 className="text-xl font-bold text-primary font-headline flex">
+              {brandName.split('').map((letter, index) => (
+                <span
+                  key={index}
+                  className="inline-block animate-wave"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {letter}
+                </span>
+              ))}
             </h1>
           </Link>
 
