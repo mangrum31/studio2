@@ -170,7 +170,7 @@ export default function RhythmMasterPage() {
       <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">Rhythm Master</h1>
       <p
         className={cn(
-          'text-base md:text-lg mb-6',
+          'text-base md:text-lg mb-6 h-6',
           statusMessage.includes('Game Over')
             ? 'text-red-400'
             : 'text-gray-400'
@@ -179,7 +179,7 @@ export default function RhythmMasterPage() {
         {statusMessage}
       </p>
 
-      <div className="flex justify-around items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-around items-center mb-8 gap-4">
         <div className="text-center">
           <span className="text-lg md:text-xl font-medium text-gray-400">Round:</span>
           <span className="text-3xl md:text-4xl font-black text-indigo-400 block">
@@ -199,7 +199,7 @@ export default function RhythmMasterPage() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 max-w-sm aspect-square mx-auto">
+      <div className="grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 max-w-xs sm:max-w-sm aspect-square mx-auto">
         {BUTTON_COLORS.map((color, index) => (
           <button
             key={index}
@@ -217,3 +217,7 @@ export default function RhythmMasterPage() {
             )}
           />
         ))}
+      </div>
+    </div>
+  );
+}

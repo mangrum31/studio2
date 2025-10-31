@@ -208,9 +208,10 @@ export default function SequenceSolverPage() {
             <div className="w-16 h-16 sm:w-24 sm:h-24 p-1 bg-background rounded-lg shadow-sm border">
               <ShapeSVG shape={item.shape} color={item.color} />
             </div>
-            <span className="text-2xl sm:text-4xl text-muted-foreground/50 font-light">&rarr;</span>
+            {index < sequence.length - 1 && <span className="text-2xl sm:text-4xl text-muted-foreground/50 font-light">&rarr;</span>}
           </div>
         ))}
+        <span className="text-2xl sm:text-4xl text-muted-foreground/50 font-light mx-1 sm:mx-2">&rarr;</span>
         <div className="w-16 h-16 sm:w-24 sm:h-24 p-2 bg-muted rounded-lg shadow-inner flex items-center justify-center">
           <span className="text-3xl sm:text-4xl font-black text-muted-foreground">?</span>
         </div>
@@ -218,7 +219,7 @@ export default function SequenceSolverPage() {
 
       <div className="mb-6">
         <p className="text-xl md:text-2xl font-semibold text-card-foreground mb-4">
-          Select the 5th item:
+          Select the next item:
         </p>
         <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
           {choices.map((item, index) => {

@@ -255,4 +255,9 @@ export default function WordWeaversPage() {
             <p className="mt-4 text-xs sm:text-sm text-muted-foreground">
               Words must be 3 letters or longer.
             </p>
-          
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
