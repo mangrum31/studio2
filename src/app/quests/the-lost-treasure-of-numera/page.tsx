@@ -46,64 +46,65 @@ export default function LostTreasurePage() {
               The Trial of Ten Puzzles
             </h2>
             <p className="text-foreground/80 mb-6">
-              Solve the following math challenges to prove your worth. The
-              answer to each puzzle is a clue for the final lock combination.
+              Solve the following math challenges to prove your worth. Each
+              answer is a number that holds a clue for the final lock
+              combination. Only the most astute adventurers will succeed.
             </p>
             <Accordion type="single" collapsible className="w-full">
               {[
                 {
-                  q: '1. Solving for x',
-                  p: 'If 3x - 8 = 34, what is the value of x?',
+                  q: '1. The Alchemist’s Equation (Solving for x)',
+                  p: 'An alchemist discovers that if you take a mystical element `x`, multiply it by 3, and then subtract 8, the result is 34. What is the value of the element `x`?',
                   a: '14',
                 },
                 {
-                  q: '2. The Missing Angle',
-                  p: 'A triangle has two angles measuring 50° and 75°. What is the measure of the third angle in degrees?',
+                  q: '2. The Triangle of Truth (The Missing Angle)',
+                  p: 'A triangular stone is etched with two angles: 50° and 75°. To unlock its power, you must find the measure of the third angle in degrees.',
                   a: '55',
                 },
                 {
-                  q: '3. The Bakers Dozen',
-                  p: 'If a baker sells 4 dozen cookies, how many individual cookies did they sell?',
+                  q: '3. The Royal Bakery (The Baker’s Dozen)',
+                  p: 'The royal baker prepares 4 dozen magical cookies for the King’s feast. How many individual cookies did the baker create?',
                   a: '48',
                 },
                 {
-                  q: '4. The Area of a Square',
-                  p: 'A square garden has a side length of 9 meters. What is its area in square meters?',
+                  q: '4. The Sacred Garden (The Area of a Square)',
+                  p: 'A square garden in the temple courtyard has a side length of 9 meters. What is the total area of the sacred ground in square meters?',
                   a: '81',
                 },
                 {
-                  q: '5. The Prime Number Path',
-                  p: 'What is the sum of the first five prime numbers (2, 3, 5, 7, 11)?',
+                  q: '5. The Seeker’s Path (Prime Numbers)',
+                  p: 'To follow the Seeker’s Path, one must sum the first five prime numbers (2, 3, 5, 7, 11). What is the sum?',
                   a: '28',
                 },
                 {
-                  q: '6. The Chariots Distance',
-                  p: 'A chariot travels at a constant speed of 30 miles per hour. How many miles will it travel in 5 hours?',
+                  q: '6. The Sun Chariot’s Journey (Distance Calculation)',
+                  p: 'The Sun Chariot travels at a constant speed of 30 miles per hour across the sky. How many miles will it cover in 5 hours?',
                   a: '150',
                 },
                 {
-                  q: '7. The Larger Number',
-                  p: 'Which is larger: 20% of 50, or 50% of 22?',
-                  a: 'The larger number is 11 (50% of 22). The digit to use is 10 (20% of 50)',
+                  q: '7. The Merchant’s Scale (The Larger Number)',
+                  p: 'A merchant has two gems. One is worth 20% of 50 gold coins, and the other is worth 50% of 22 gold coins. You must use the value of the first gem for your clue. What is its value?',
+                  a: 'The first gem is worth 10. (The second is 11, but the clue uses the first.)',
                 },
                 {
-                  q: '8. The Bookworm’s Pace',
-                  p: 'A scholar reads 25 pages every day. How many days will it take to finish a 200-page book?',
+                  q: '8. The Librarian’s Task (The Bookworm’s Pace)',
+                  p: 'A wise librarian reads exactly 25 pages from an ancient tome each day. How many days will it take to finish a 200-page book?',
                   a: '8',
                 },
                 {
-                  q: '9. The Fraction Mix-Up',
-                  p: 'What is 1/2 + 1/4?',
+                  q: '9. The Potion Master’s Brew (Fraction Mix-Up)',
+                  p: 'A potion requires 1/2 liter of moonlight essence and 1/4 liter of stardust liquid. What is the total volume of the mixture in liters?',
                   a: '3/4 or 0.75',
                 },
                 {
-                  q: '10. The Exponents Value',
-                  p: 'What is the value of 2 to the power of 5 (2^5)?',
+                  q: '10. The Sorcerer’s Power (Exponents)',
+                  p: 'A sorcerer’s power doubles five times, starting from an initial strength of 2. What is the final strength (2 to the power of 5, or 2^5)?',
                   a: '32',
                 },
               ].map((item, index) => (
                 <AccordionItem value={`item-${index + 1}`} key={index}>
-                  <AccordionTrigger className="font-semibold font-headline text-lg">
+                  <AccordionTrigger className="font-semibold font-headline text-lg text-left">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent>
@@ -127,18 +128,19 @@ export default function LostTreasurePage() {
               The Treasure's Code
             </h2>
             <p className="text-foreground/80 mb-6">
-              To unlock The Lost Treasure of Numera, use the correct answers from
-              the puzzles above to calculate the four-digit code $D_1D_2D_3D_4$.
+              The ancient lock requires four digits, $D_1D_2D_3D_4$. Use the
+              answers from your trials to decipher each part of the final code.
+              Each step below reveals one digit.
             </p>
 
             <div className="space-y-4">
               <div className="p-4 bg-background rounded-lg border">
                 <h3 className="font-semibold text-lg mb-2">
-                  $D_1$ (The Speed Digit)
+                  $D_1$ &mdash; The Speed Digit
                 </h3>
                 <p>
                   Take the <strong>first digit</strong> of the correct answer to{' '}
-                  <strong>Question 6</strong> (The Chariot's Distance).
+                  <strong>Question 6</strong> (The Sun Chariot's Journey).
                 </p>
                 <p className="font-mono text-primary text-lg mt-2">
                   Answer to Q6 is 150 &rarr; $D_1 = 1$
@@ -147,37 +149,40 @@ export default function LostTreasurePage() {
 
               <div className="p-4 bg-background rounded-lg border">
                 <h3 className="font-semibold text-lg mb-2">
-                  $D_2$ (The Factor Digit)
+                  $D_2$ &mdash; The Factor Digit
                 </h3>
                 <p>
-                  Find the number of <strong>prime factors</strong> for the correct
-                  answer to <strong>Question 7</strong> (The number 10).
+                  Find the number of <strong>prime factors</strong> for the
+                  value from <strong>Question 7</strong> (The Merchant's Scale).
                 </p>
                 <p className="font-mono text-primary text-lg mt-2">
-                  Prime factors of 10 are 2 &times; 5 &rarr; $D_2 = 2$
+                  The value is 10. The prime factors of 10 are 2 &times; 5.
+                  There are two factors. &rarr; $D_2 = 2$
                 </p>
               </div>
 
               <div className="p-4 bg-background rounded-lg border">
                 <h3 className="font-semibold text-lg mb-2">
-                  $D_3$ (The Sum Digit)
+                  $D_3$ &mdash; The Sum Digit
                 </h3>
                 <p>
                   Find the <strong>sum of the digits</strong> of the correct
-                  answer to <strong>Question 1</strong> (Solving for $x$).
+                  answer to <strong>Question 1</strong> (The Alchemist's
+                  Equation).
                 </p>
                 <p className="font-mono text-primary text-lg mt-2">
-                  Answer to Q1 is 14. Sum of digits 1 + 4 = 5 &rarr; $D_3 = 5$
+                  Answer to Q1 is 14. The sum of its digits is 1 + 4 = 5.
+                  &rarr; $D_3 = 5$
                 </p>
               </div>
 
               <div className="p-4 bg-background rounded-lg border">
                 <h3 className="font-semibold text-lg mb-2">
-                  $D_4$ (The Power Digit)
+                  $D_4$ &mdash; The Power Digit
                 </h3>
                 <p>
                   Take the <strong>last digit</strong> of the correct answer to{' '}
-                  <strong>Question 10</strong> (The Exponent's Value).
+                  <strong>Question 10</strong> (The Sorcerer's Power).
                 </p>
                 <p className="font-mono text-primary text-lg mt-2">
                   Answer to Q10 is 32 &rarr; $D_4 = 2$
@@ -195,6 +200,7 @@ export default function LostTreasurePage() {
             </h2>
             <p>
               Combine the digits $D_1D_2D_3D_4$ to reveal the lock's combination.
+              Enter this code into the ancient mechanism to claim your prize.
             </p>
             <div className="my-6 bg-muted/50 p-6 rounded-lg">
               <p className="text-muted-foreground mb-2">The Code Is</p>
