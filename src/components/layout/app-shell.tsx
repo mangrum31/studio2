@@ -20,6 +20,7 @@ import {
   SheetClose,
 } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AppShellProps {
   children: ReactNode;
@@ -39,6 +40,15 @@ const navItems = [
 
 export const AppShell: FC<AppShellProps> = ({ children }) => {
   const pathname = usePathname();
+  const isMobile = useIsMobile();
+
+  if (isMobile === null) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Rocket className="h-10 w-10 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col">
@@ -58,7 +68,7 @@ export const AppShell: FC<AppShellProps> = ({ children }) => {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
+                  'text-base font-medium transition-colors hover:text-primary',
                   pathname.startsWith(item.href)
                     ? 'text-primary'
                     : 'text-muted-foreground'
