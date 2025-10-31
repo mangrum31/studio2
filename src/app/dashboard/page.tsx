@@ -21,7 +21,7 @@ export default function DashboardPage() {
       </header>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-center aspect-square">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Quests Completed</CardTitle>
             <Trophy className="h-5 w-5" color="hsl(var(--chart-4))" />
@@ -31,7 +31,7 @@ export default function DashboardPage() {
             <p className="text-xs text-muted-foreground">+2 since last week</p>
           </CardContent>
         </Card>
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-center aspect-square">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Skills Mastered</CardTitle>
             <Star className="h-5 w-5" color="hsl(var(--chart-4))" />
@@ -41,7 +41,7 @@ export default function DashboardPage() {
             <p className="text-xs text-muted-foreground">New 'Vocabulary' skill</p>
           </CardContent>
         </Card>
-        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-center aspect-square">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Playtime</CardTitle>
             <CheckCircle className="h-5 w-5" color="hsl(var(--chart-2))" />
@@ -75,12 +75,12 @@ export default function DashboardPage() {
                   stroke="#888888"
                   fontSize={12}
                 />
-                <YAxis 
-                  tickLine={false} 
-                  axisLine={false} 
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
                   stroke="#888888"
                   fontSize={12}
-                  tickMargin={10} 
+                  tickMargin={10}
                 />
                 <ChartTooltip
                   cursor={false}
